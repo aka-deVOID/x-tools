@@ -1,13 +1,12 @@
 # Twitter Tool
 
-## Features
+## What can I do?
 
 - Delete Tweets
 - Delete Replies
 - Remove Likes
 - Remove Followings
-- Delete Medias
-- Auto Block and Mute based on keywords
+- Delete Media Tweet
 
 ### Libs
 
@@ -22,5 +21,6 @@ Selenuim
 - [ ] Extnsion Handler ( for using as VPN, Proxy and stuff )
 - [ ] Driver Builder [Link](https://selenium-python.readthedocs.io/api.html#module-selenium.webdriver.firefox.webdriver)
   and [Link](https://selenium-python.readthedocs.io/api.html#module-selenium.webdriver.firefox.webdriver)
-- [ ] CLI menu style
+- [x] CLI menu style
 - [ ] Login detector ( for now we don't support auto login ) after the user logged in process will be started.
+- [ ] Auto extension downloader
