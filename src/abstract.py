@@ -1,8 +1,16 @@
 from logging import debug, info, warning, error, critical
 
+from exceptions import LoggerException
 
-class Log:
-    def log(self, log_level: str, message: str) -> None:
+
+class Logging:
+    """Log class to ddeserve log methods for using logging in core classes"""
+
+    @staticmethod
+    def log(log_level: str, message: str) -> None:
+        """
+        :raise LoggerException:
+        """
         match log_level:
             case "info":
                 info(message)
@@ -14,7 +22,10 @@ class Log:
                 debug(message)
             case "critical":
                 critical(message)
+            case _:
+                raise LoggerException(f"{log_level} log level is not valid")
 
 
-class ABC(Log):
+class Abstract(Logging):
+    """the top level of abstraction for each core class in twitter tools"""
     pass
