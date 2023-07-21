@@ -8,3 +8,7 @@ class DriverDoesNotSupported(AbstractException):
 
 class LoggerException(AbstractException):
     pass
+
+
+class BrowserNameIsNotValid(AbstractException):
+    pass
