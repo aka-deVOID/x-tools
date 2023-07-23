@@ -1,0 +1,24 @@
+[build-system]
+requires      = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "twitter tools"
+version = "0.0.0"
+description = " Twitter Tools, without API ... "
+readme = "README.md"
+authors = [{ name = "deVOID"}]
+license = { file = "LICENSE" }
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+keywords = ["twitter", "tool", "selenium"]
+requires-python = ">=3.9"
+
+[project.urls]
+Homepage = "https://github.com/aka-deVOID/twitter-tools"
+
+[project.scripts]
+twitter-tools = "src.__main__:main"
