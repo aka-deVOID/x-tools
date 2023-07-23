@@ -8,14 +8,19 @@
 - Remove Followings
 - Delete Media Tweet
 
-### Libs
+#### Installation
 
-Selenuim
+```sh
+git clone https://github.com/aka-deVOID/twitter-tools.git
+cd twitter-tools
+pip install -r requirements.txt
+python src/main.py
+```
 
 #### TODO
 
 - [ ] Option Builder [Link](https://selenium-python.readthedocs.io/api.html#module-selenium.webdriver.firefox.options)
-  And [Link](https://selenium-python.readthedocs.io/api.html#module-selenium.webdriver.firefox.options)
+  and [Link](https://selenium-python.readthedocs.io/api.html#module-selenium.webdriver.firefox.options)
 - [ ] Firefox Profile
   Builder [Link](https://selenium-python.readthedocs.io/api.html#module-selenium.webdriver.firefox.firefox_profile)
 - [ ] Extnsion Handler ( for using as VPN, Proxy and stuff )
