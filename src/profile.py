@@ -1,5 +1,5 @@
-from abstract import ABC
+from .abstract import Abstract, Singleton
 
 
-class Profile(ABC):
+class Profile(Abstract, metaclass=Singleton):
     ...

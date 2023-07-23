@@ -2,13 +2,18 @@ from selenium.webdriver import Chrome, Firefox, ChromeOptions, FirefoxOptions, F
 from exceptions import DriverDoesNotSupported
 from handler import Twitter
 from typing import Self
-from abstract import ABC
+from abstract import Abstract, Singleton
 import platform
 
 
-class Driver(ABC):
+class Driver(Abstract, metaclass=Singleton):
+    """Driver builder build WebDriver instance."""
+
     def __init__(self, driver_name: str, options: FirefoxOptions | ChromeOptions = None,
                  profile: FirefoxProfile = None) -> None:
+        """
+        :raise DriverDoesNotSupported
+        """
         self.driver_logger: str | None = None
         self.driver_options: ChromeOptions | FirefoxOptions | None = options
         self.driver_keep_alive: bool = False
@@ -42,8 +47,8 @@ class Driver(ABC):
             TODO: move option to driver
         """
         if self.driver_logger:
-            driver = self.driver(keep_alive=self.driver_keep_alive,
+            driver = self.driver(options=self.driver_options, keep_alive=self.driver_keep_alive,
                                  service_log_path=self.driver_logger)  # TODO: fix service_log_path not working
         else:
-            driver = self.driver(keep_alive=self.driver_keep_alive)
-        return Twitter(driver)
+            driver = self.driver(options=self.driver_options, keep_alive=self.driver_keep_alive)
+            return Twitter(driver)
