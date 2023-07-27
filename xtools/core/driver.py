@@ -4,6 +4,7 @@ from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver.chrome.service import Service as ChromeService
 from .handler import X
 from .abstract import Abstract, Singleton, Browsers
+from .option import Option
 
 
 class Driver(Abstract, metaclass=Singleton):
@@ -24,6 +25,7 @@ class Driver(Abstract, metaclass=Singleton):
             case _:
                 from ..exceptions import DriverDoesNotSupported
                 raise DriverDoesNotSupported(f"{browser} does not supported.")
+        Option(browser)  # auto create option
 
     @property
     def service(self) -> FirefoxService | ChromeService:

@@ -1,6 +1,6 @@
 import ipaddress
 from typing import Self
-from selenium.webdriver import FirefoxOptions, ChromeOptions, Proxy
+from selenium.webdriver import FirefoxOptions, ChromeOptions, Proxy, FirefoxProfile
 from selenium.webdriver.common.proxy import ProxyType
 from .abstract import Abstract, Singleton, Browsers
 
