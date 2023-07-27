@@ -3,19 +3,17 @@ from selenium.webdriver import Chrome, Firefox, ChromeOptions, FirefoxOptions
 from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver.chrome.service import Service as ChromeService
 from .handler import X
-from typing import Self
 from .abstract import Abstract, Singleton, Browsers
-import platform
 
 
 class Driver(Abstract, metaclass=Singleton):
     """Driver builder build WebDriver instance."""
 
-    def __init__(self, browser: Browsers = None, options: FirefoxOptions | ChromeOptions = None) -> None:
+    def __init__(self, browser: Browsers = None) -> None:
         """
         :raise DriverDoesNotSupported
         """
-        self.__driver_options: ChromeOptions | FirefoxOptions | None = options
+        self.__driver_options: ChromeOptions | FirefoxOptions | None = None
         self.__driver_keep_alive: bool = False
         self.__driver_service = None
         match browser:
