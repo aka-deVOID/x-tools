@@ -6,7 +6,7 @@ from .abstract import Abstract
 from selenium.common.exceptions import TimeoutException
 
 
-class Twitter(Abstract):
+class X(Abstract):
 
     def __init__(self, driver: Firefox | Chrome) -> None:
         self.driver = driver

@@ -1,55 +1,68 @@
-from selenium.webdriver import Chrome, Firefox, ChromeOptions, FirefoxOptions, FirefoxProfile
-from ..exceptions import DriverDoesNotSupported
-from .handler import Twitter
+from __future__ import annotations
+from selenium.webdriver import Chrome, Firefox, ChromeOptions, FirefoxOptions
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from selenium.webdriver.chrome.service import Service as ChromeService
+from .handler import X
 from typing import Self
-from .abstract import Abstract, Singleton
+from .abstract import Abstract, Singleton, Browsers
 import platform
 
 
 class Driver(Abstract, metaclass=Singleton):
     """Driver builder build WebDriver instance."""
 
-    def __init__(self, driver_name: str, options: FirefoxOptions | ChromeOptions = None,
-                 profile: FirefoxProfile = None) -> None:
+    def __init__(self, browser: Browsers = None, options: FirefoxOptions | ChromeOptions = None) -> None:
         """
         :raise DriverDoesNotSupported
         """
-        self.driver_logger: str | None = None
-        self.driver_options: ChromeOptions | FirefoxOptions | None = options
-        self.driver_keep_alive: bool = False
-        self.platform: str = platform.system()
-        match driver_name:
-            case "chrome":
-                self.driver = Chrome
-            case "firefox":
-                self.profile: FirefoxProfile = profile
-                self.driver = Firefox
+        self.__driver_options: ChromeOptions | FirefoxOptions | None = options
+        self.__driver_keep_alive: bool = False
+        self.__driver_service = None
+        match browser:
+            case Browsers.Chrome:
+                self.__driver = Chrome
+            case Browsers.FireFox:
+                self.__driver = Firefox
             case _:
-                raise DriverDoesNotSupported(f"{driver_name} does not supported.")
+                from ..exceptions import DriverDoesNotSupported
+                raise DriverDoesNotSupported(f"{browser} does not supported.")
 
-    def keep_alive(self, toggle: bool = False) -> Self:
-        self.driver_keep_alive = toggle
-        return self
+    @property
+    def service(self) -> FirefoxService | ChromeService:
+        return self.__driver_service
 
-    def log_system(self, toggle: bool = True) -> Self:
-        """TODO: fix here not working test on windows."""
-        if not toggle:
-            if self.platform == "Windows":
-                self.driver_logger = "NULL"
-            else:
-                self.driver_logger = "/dev/null"
+    @service.setter
+    def service(self, service: FirefoxService | ChromeService):
+        if isinstance(service, FirefoxService) and isinstance(self.__driver, Firefox):
+            self.__driver_service = service
+        elif isinstance(service, ChromeService) and isinstance(self.__driver, Chrome):
+            self.__driver_service = service
         else:
-            self.driver_logger = None
+            from ..exceptions import OptionIsNotValid
+            raise OptionIsNotValid("service type is not same with driver")
 
-        return self
+    @property
+    def options(self) -> ChromeOptions | FirefoxOptions:
+        return self.__driver_options
 
-    def build(self) -> Twitter:
-        """
-            TODO: move option to driver
-        """
-        if self.driver_logger:
-            driver = self.driver(options=self.driver_options, keep_alive=self.driver_keep_alive,
-                                 service_log_path=self.driver_logger)  # TODO: fix service_log_path not working
+    @options.setter
+    def options(self, options: ChromeOptions | FirefoxOptions) -> None:
+        if isinstance(options, FirefoxOptions) and isinstance(self.__driver, Firefox):
+            self.__driver_options = options
+        elif isinstance(options, ChromeOptions) and isinstance(self.__driver, Chrome):
+            self.__driver_options = options
         else:
-            driver = self.driver(options=self.driver_options, keep_alive=self.driver_keep_alive)
-            return Twitter(driver)
+            from ..exceptions import OptionIsNotValid
+            raise OptionIsNotValid("option type is not same with driver")
+
+    @property
+    def keep_alive(self) -> bool:
+        return self.__driver_keep_alive
+
+    @keep_alive.setter
+    def keep_alive(self, toggle: bool = False) -> None:
+        self.__driver_keep_alive = toggle
+
+    def build(self) -> X:
+        return X(self.__driver(options=self.__driver_options,
+                               keep_alive=self.__driver_keep_alive))

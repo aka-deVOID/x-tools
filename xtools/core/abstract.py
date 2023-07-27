@@ -1,4 +1,10 @@
 from logging import debug, info, warning, error, critical
+from enum import Enum
+
+
+class Browsers(Enum):
+    FireFox = 1
+    Chrome = 2
 
 
 class Logging:
