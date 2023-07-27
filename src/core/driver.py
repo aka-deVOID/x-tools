@@ -1,5 +1,5 @@
 from selenium.webdriver import Chrome, Firefox, ChromeOptions, FirefoxOptions, FirefoxProfile
-from exceptions import DriverDoesNotSupported
+from ..exceptions import DriverDoesNotSupported
 from handler import Twitter
 from typing import Self
 from abstract import Abstract, Singleton
@@ -32,6 +32,7 @@ class Driver(Abstract, metaclass=Singleton):
         return self
 
     def log_system(self, toggle: bool = True) -> Self:
+        """TODO: fix here not working test on windows."""
         if not toggle:
             if self.platform == "Windows":
                 self.driver_logger = "NULL"

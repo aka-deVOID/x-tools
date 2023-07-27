@@ -1,8 +1,5 @@
-from cli.parser import execute
+from .parser import execute
 
 
 def main() -> None:
     execute()
-
-
-main()

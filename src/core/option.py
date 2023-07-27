@@ -14,7 +14,7 @@ class Option(Abstract, metaclass=Singleton):
             case "chrome":
                 self.options = ChromeOptions()
             case _:
-                from .exceptions import BrowserNameIsNotValid
+                from ..exceptions import BrowserNameIsNotValid
                 raise BrowserNameIsNotValid(f"{deriver_name} ")
 
     def set_proxy(self, ip: str, port: str) -> Self:

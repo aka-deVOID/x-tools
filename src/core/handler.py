@@ -2,14 +2,11 @@ from selenium.webdriver import Firefox, Chrome
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
-from abstract import ABC
+from abstract import Abstract
 from selenium.common.exceptions import TimeoutException
 
 
-class Twitter(ABC):
-    """
-        
-    """
+class Twitter(Abstract):
 
     def __init__(self, driver: Firefox | Chrome) -> None:
         self.driver = driver

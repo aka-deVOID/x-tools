@@ -1,7 +1,5 @@
 from logging import debug, info, warning, error, critical
 
-from exceptions import LoggerException
-
 
 class Logging:
     """Log class to ddeserve log methods for using logging in core classes"""
@@ -23,6 +21,7 @@ class Logging:
             case "critical":
                 critical(message)
             case _:
+                from ..exceptions import LoggerException
                 raise LoggerException(f"{log_level} log level is not valid")
 
 

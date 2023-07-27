@@ -1,8 +1,8 @@
-from abstract import ABC
+from abstract import Abstract
 from option import Option
 
 
-class Builder(ABC):
+class Builder(Abstract):
     """
         factory builder to create options, profile and move them to build Driver
     """

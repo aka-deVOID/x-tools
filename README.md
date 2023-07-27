@@ -11,8 +11,8 @@
 #### Installation
 
 ```sh
-git clone https://github.com/aka-deVOID/twitter-tools.git
-cd twitter-tools
+git clone https://github.com/aka-deVOID/x-tools.git
+cd x-tools
 pip install -r requirements.txt
 python src/main.py
 ```

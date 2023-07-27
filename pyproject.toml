@@ -18,7 +18,7 @@ keywords = ["twitter", "tool", "selenium"]
 requires-python = ">=3.9"
 
 [project.urls]
-Homepage = "https://github.com/aka-deVOID/twitter-tools"
+Homepage = "https://github.com/aka-deVOID/x-tools"
 
 [project.scripts]
 twitter-tools = "src.__main__:main"
