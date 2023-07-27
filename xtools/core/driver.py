@@ -62,5 +62,13 @@ class Driver(Abstract, metaclass=Singleton):
         self.__driver_keep_alive = toggle
 
     def build(self) -> X:
-        return X(self.__driver(options=self.__driver_options,
+        service = None
+        if isinstance(self.__driver, Firefox):
+            from selenium.webdriver.firefox.service import Service
+            service = Service(log_file="xtools-browser.log")
+        elif isinstance(self.__driver, Chrome):
+            from selenium.webdriver.chrome.service import Service
+            service = Service(log_file="xtools-browser.log")
+
+        return X(self.__driver(options=self.__driver_options, service=service,
                                keep_alive=self.__driver_keep_alive))
