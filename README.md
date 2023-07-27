@@ -1,4 +1,4 @@
-# Twitter Tool
+# X Tool (no more Twitter)
 
 ## What can I do?
 
