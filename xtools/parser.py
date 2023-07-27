@@ -1,5 +1,3 @@
-import asyncio
-
 from .menus import MainMenu
 
 

@@ -2,7 +2,7 @@ from selenium.webdriver import Firefox, Chrome
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
-from abstract import Abstract
+from .abstract import Abstract
 from selenium.common.exceptions import TimeoutException
 
 

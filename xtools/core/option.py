@@ -2,7 +2,7 @@ from typing import Self
 
 from selenium.webdriver import FirefoxOptions, ChromeOptions, Proxy
 from selenium.webdriver.common.proxy import ProxyType
-from abstract import Abstract, Singleton
+from .abstract import Abstract, Singleton
 
 
 class Option(Abstract, metaclass=Singleton):

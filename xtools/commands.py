@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 from .abstracts import AbstractMenu, AbstractCommand
-from core.driver import Driver
+from .core import Driver
 
 
 class HelpCommand(AbstractCommand):

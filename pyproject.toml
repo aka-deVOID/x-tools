@@ -21,4 +21,4 @@ requires-python = ">=3.9"
 Homepage = "https://github.com/aka-deVOID/x-tools"
 
 [project.scripts]
-twitter-tools = "src.__main__:main"
+twitter-tools = "xtools.__main__:main"

@@ -1,8 +1,8 @@
 from selenium.webdriver import Chrome, Firefox, ChromeOptions, FirefoxOptions, FirefoxProfile
 from ..exceptions import DriverDoesNotSupported
-from handler import Twitter
+from .handler import Twitter
 from typing import Self
-from abstract import Abstract, Singleton
+from .abstract import Abstract, Singleton
 import platform
 
 
