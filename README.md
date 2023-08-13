@@ -21,7 +21,7 @@ python src/main.py
 
 - [ ] Option Builder [Link](https://selenium-python.readthedocs.io/api.html#module-selenium.webdriver.firefox.options)
   and [Link](https://selenium-python.readthedocs.io/api.html#module-selenium.webdriver.firefox.options)
-- [ ] Firefox Profile
+- [x] (Removed) Firefox Profile
   Builder [Link](https://selenium-python.readthedocs.io/api.html#module-selenium.webdriver.firefox.firefox_profile)
 - [ ] Extnsion Handler ( for using as VPN, Proxy and stuff )
 - [ ] Driver Builder [Link](https://selenium-python.readthedocs.io/api.html#module-selenium.webdriver.firefox.webdriver)
@@ -29,3 +29,4 @@ python src/main.py
 - [x] CLI menu style
 - [ ] Login detector ( for now we don't support auto login ) after the user logged in process will be started.
 - [ ] Auto extension downloader
+- [ ] Fix prints color (using rich and colorama)

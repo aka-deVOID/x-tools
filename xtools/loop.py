@@ -1,18 +1,21 @@
 from .menus import MainMenu
+from .abstracts import ErrorHandler
 
 
 def initialize_cmd():  # TODO fix
-    logo = r''' ______         _  __   __              ______            __
-/_  __/_    __ (_)/ /_ / /_ ___  ____  /_  __/___  ___   / /___
- / /  | |/|/ // // __// __// -_)/ __/   / /  / _ \/ _ \ / /(_-<
-/_/   |__,__//_/ \__/ \__/ \__//_/     /_/   \___/\___//_//___/'''
+    logo = r'''
+   _  __    ______            __
+  | |/ /   /_  __/___  ____  / /____
+  |   /     / / / __ \/ __ \/ / ___/
+ /   |     / / / /_/ / /_/ / (__  )
+/_/|_|    /_/  \____/\____/_/____/'''
     description = r'''
 ----------------------------------------------------------------------
-Twitter Tools made it for remove your tweets and following and more ...
+X Tools made it for remove your tweets and following and more ...
 You can Delete Tweets, Delete Replies, Remove Likes, Remove Followings and Delete Medias ...
 
 ---- ~ ----
-- Repository: https://github.com/aka-deVOID/twitter-tools
+- Repository: https://github.com/aka-deVOID/x-tools
 - Support: Soon
     '''
 
@@ -20,7 +23,7 @@ You can Delete Tweets, Delete Replies, Remove Likes, Remove Followings and Delet
     print(description)
 
 
-class MainLoop:
+class MainLoop(ErrorHandler):
     def __init__(self):
         initialize_cmd()
         self.loop()

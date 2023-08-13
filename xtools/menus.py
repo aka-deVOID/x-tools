@@ -3,49 +3,53 @@ import sys
 from typing import Any
 
 from .abstracts import AbstractMenu, AbstractCommand
-from .commands import HelpCommand  # cause cycle error
+from .commands import HelpCommand, BrowserKeepAliveCommand, BrowserLoggingCommand  # cause cycle error
+from .core import *
 
 
 class FirefoxDriverMenu(AbstractMenu):
-    def __init__(self, perv_menu: AbstractMenu = None) -> None:
-        self.perv_menu = perv_menu
+
+    def select_item(self, item_number: int) -> AbstractCommand | AbstractMenu:
+        match item_number:
+            case 1:
+                return BrowserKeepAliveCommand(self).exec()
+            case 2:
+                return BrowserLoggingCommand(self).exec()
+            case 3:
+                return self.back()
+            case 5:
+                self._exit()
+
+    def print_menu(self) -> None:
+        print("Select your option:")
+        print("""[1] - Keep Alive (default Disable)
+[2] - Browser Logging (default Disable)
+[3] - Back
+[5] - Exit""")
+
+    def push(self, data: Any) -> None:
+        pass
+
+
+class FirefoxOptionMenu(AbstractMenu):
 
     def select_item(self, item_number: int) -> AbstractCommand | AbstractMenu:
         match item_number:
             case 1:
                 pass
             case 2:
+                self._exit()
+            case _:
                 pass
-            case 3:
-                return self.back()
-            case 4:
-                return self.back()
-
-    def print_menu(self) -> None:
-        print("Select your option:")
-        print("""[1] - Keep Alive (default Disable)
-[2] - Browser Logging (default Disable)
-[3] - Enter (Save Settings)
-[4] - Perv Menu (Settings are dropped)""")
 
     def push(self, data: Any) -> None:
         pass
 
-    def back(self) -> AbstractMenu:
-        return FirefoxMenu()
-
-
-class FirefoxOptionMenu:
-    pass
-
-
-class FirefoxProfileMenu:
-    pass
+    def print_menu(self) -> None:
+        pass
 
 
 class ToolsMenu(AbstractMenu):
-    def __init__(self, perv_menu: AbstractMenu = None) -> None:
-        pass
 
     def select_item(self, item_number: int) -> AbstractCommand | AbstractMenu:
         match item_number:
@@ -60,56 +64,47 @@ class ToolsMenu(AbstractMenu):
             case 5:
                 pass
             case 6:
-                return FirefoxMenu()
+                return self.back()
+            case 7:
+                self._exit()
 
     def print_menu(self) -> None:
         print("Select One Option:")
         print(
-            "[1] - Delete Tweets (+Medias)\n[2] - Delete Medias\n[3] - Delete Replies\n[4] - Remove Likes\n[5] - Remove Followings\n[6] - Prev Menu"
+            "[1] - Delete Tweets (+Medias)\n[2] - Delete Medias\n[3] - Delete Replies\n[4] - Remove Likes\n[5] - Remove Followings\n[6] - Prev Menu\n[7] - Exit"
         )
 
     def push(self, data: Any) -> None:
-        pass
-
-    def back(self) -> AbstractMenu:
         pass
 
 
 class FirefoxMenu(AbstractMenu):
 
-    def __init__(self, perv_menu: AbstractMenu = None) -> None:
-        pass
-
     def select_item(self, item_number: int) -> AbstractCommand | AbstractMenu:
         match item_number:
             case 1:
-                return FirefoxDriverMenu()
+                return FirefoxDriverMenu(self)
             case 2:
-                return FirefoxOptionMenu()
+                return FirefoxOptionMenu(self)
             case 3:
-                return FirefoxProfileMenu()
+                return ToolsMenu(self)
             case 4:
-                return ToolsMenu()
-            case 5:
                 return self.back()
+            case 5:
+                self._exit()
 
     def print_menu(self) -> None:
         print("Menu Commands:")
         print(
-            """[1] - Driver Setting\n[2] - Firefox Option\n[3] - Firefox Profile\n[4] - Enter\n[5] - Prev Menu"""
+            """[1] - Driver Setting\n[2] - Firefox Option\n[3] - Enter\n[4] - Prev Menu\n[5] - Exit"""
         )
 
     def push(self, data: Any) -> None:
         pass
 
-    def back(self) -> AbstractMenu:
-        return MainMenu()
 
-
+# TODO fix Chrome menu
 class ChromeMenu(AbstractMenu):
-
-    def __init__(self, perv_menu: AbstractMenu = None) -> None:
-        pass
 
     def select_item(self, item_number: int) -> AbstractCommand | AbstractMenu:
         pass
@@ -120,31 +115,32 @@ class ChromeMenu(AbstractMenu):
     def push(self, data: Any) -> None:
         pass
 
-    def back(self) -> AbstractMenu:
-        pass
-
 
 class MainMenu(AbstractMenu):
-    def __init__(self, perv_menu: AbstractMenu = None) -> None:
-        pass
+
+    def __init__(self):
+        super().__init__(self)
 
     def print_menu(self) -> None:
         print("Select Your Browser:")
         print("""[1] - Firefox\n[2] - Chrome\n[3] - Help\n[4] - Exit""")
 
     def select_item(self, item_number: int) -> AbstractCommand | AbstractMenu:
+        from .core.abstract import Browsers
         match item_number:
             case 1:
-                return FirefoxMenu()
+                Driver(Browsers.FireFox)
+                return FirefoxMenu(self)
             case 2:
-                return ChromeMenu()
+                Driver(Browsers.Chrome)
+                return ChromeMenu(self)
             case 3:
                 return HelpCommand(self)
             case 4:
-                sys.exit()  # close the program
+                self._exit()  # close the program
 
     def push(self, data: Any) -> None:
         pass
 
-    def back(self) -> MainMenu:
-        raise NotImplemented
+    def back(self) -> AbstractMenu:
+        return self

@@ -12,3 +12,11 @@ class LoggerException(AbstractException):
 
 class BrowserNameIsNotValid(AbstractException):
     pass
+
+
+class OptionIsNotValid(AbstractException):
+    pass
+
+
+class IPIsNotValid(AbstractException):
+    pass

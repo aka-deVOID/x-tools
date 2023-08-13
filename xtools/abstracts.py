@@ -1,4 +1,6 @@
 from __future__ import annotations
+
+import sys
 from abc import ABC, abstractmethod
 from typing import Any
 
@@ -8,8 +10,7 @@ from rich.pretty import pprint
 class AbstractMenu(ABC):
     """top-level abstraction for menus"""
 
-    @abstractmethod
-    def __init__(self, perv_menu: AbstractMenu = None) -> None:
+    def __init__(self, perv_menu: AbstractMenu) -> None:
         self.perv_menu = perv_menu
 
     @abstractmethod
@@ -20,9 +21,12 @@ class AbstractMenu(ABC):
     def select_item(self, item_number: int) -> AbstractCommand | AbstractMenu:
         raise NotImplementedError
 
-    @abstractmethod
     def back(self) -> AbstractMenu:
-        raise NotImplementedError
+        return self.perv_menu
+
+    @staticmethod
+    def _exit():
+        sys.exit(0)
 
     # TODO: def menu_builder(self, *args: list[str]): ...
 
@@ -35,12 +39,18 @@ class AbstractMenu(ABC):
         self.print_menu()
         while True:
             try:
-                item = int(input("enterr item number: "))
+                item = int(input("enter item number: "))
             except ValueError:
                 pprint("wrong input type.")
                 continue
             else:
                 return self.select_item(item)
+
+
+class ErrorHandler:
+    def error_print(self):
+        """ print errors with styled and colorized  """
+        ...
 
 
 class AbstractCommand(ABC):
@@ -51,3 +61,7 @@ class AbstractCommand(ABC):
 
     @abstractmethod
     def exec(self) -> AbstractMenu: raise NotImplementedError
+
+    @staticmethod
+    def cmd_print(message: str):
+        print("> " + message)
