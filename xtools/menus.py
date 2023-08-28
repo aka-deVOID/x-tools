@@ -3,12 +3,15 @@ import sys
 from typing import Any
 
 from .abstracts import AbstractMenu, AbstractCommand
-from .commands import HelpCommand, BrowserKeepAliveCommand, BrowserLoggingCommand  # cause cycle error
+from .commands import (
+    HelpCommand,
+    BrowserKeepAliveCommand,
+    BrowserLoggingCommand,
+)  # cause cycle error
 from .core import *
 
 
 class FirefoxDriverMenu(AbstractMenu):
-
     def select_item(self, item_number: int) -> AbstractCommand | AbstractMenu:
         match item_number:
             case 1:
@@ -22,17 +25,18 @@ class FirefoxDriverMenu(AbstractMenu):
 
     def print_menu(self) -> None:
         print("Select your option:")
-        print("""[1] - Keep Alive (default Disable)
+        print(
+            """[1] - Keep Alive (default Disable)
 [2] - Browser Logging (default Disable)
 [3] - Back
-[5] - Exit""")
+[5] - Exit"""
+        )
 
     def push(self, data: Any) -> None:
         pass
 
 
 class FirefoxOptionMenu(AbstractMenu):
-
     def select_item(self, item_number: int) -> AbstractCommand | AbstractMenu:
         match item_number:
             case 1:
@@ -50,7 +54,6 @@ class FirefoxOptionMenu(AbstractMenu):
 
 
 class ToolsMenu(AbstractMenu):
-
     def select_item(self, item_number: int) -> AbstractCommand | AbstractMenu:
         match item_number:
             case 1:
@@ -79,7 +82,6 @@ class ToolsMenu(AbstractMenu):
 
 
 class FirefoxMenu(AbstractMenu):
-
     def select_item(self, item_number: int) -> AbstractCommand | AbstractMenu:
         match item_number:
             case 1:
@@ -105,7 +107,6 @@ class FirefoxMenu(AbstractMenu):
 
 # TODO fix Chrome menu
 class ChromeMenu(AbstractMenu):
-
     def select_item(self, item_number: int) -> AbstractCommand | AbstractMenu:
         pass
 
@@ -117,7 +118,6 @@ class ChromeMenu(AbstractMenu):
 
 
 class MainMenu(AbstractMenu):
-
     def __init__(self):
         super().__init__(self)
 
@@ -127,6 +127,7 @@ class MainMenu(AbstractMenu):
 
     def select_item(self, item_number: int) -> AbstractCommand | AbstractMenu:
         from .core.abstract import Browsers
+
         match item_number:
             case 1:
                 Driver(Browsers.FireFox)

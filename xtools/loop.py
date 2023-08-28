@@ -3,13 +3,13 @@ from .abstracts import ErrorHandler
 
 
 def initialize_cmd():  # TODO fix
-    logo = r'''
+    logo = r"""
    _  __    ______            __
   | |/ /   /_  __/___  ____  / /____
   |   /     / / / __ \/ __ \/ / ___/
  /   |     / / / /_/ / /_/ / (__  )
-/_/|_|    /_/  \____/\____/_/____/'''
-    description = r'''
+/_/|_|    /_/  \____/\____/_/____/"""
+    description = r"""
 ----------------------------------------------------------------------
 X Tools made it for remove your tweets and following and more ...
 You can Delete Tweets, Delete Replies, Remove Likes, Remove Followings and Delete Medias ...
@@ -17,7 +17,7 @@ You can Delete Tweets, Delete Replies, Remove Likes, Remove Followings and Delet
 ---- ~ ----
 - Repository: https://github.com/aka-deVOID/x-tools
 - Support: Soon
-    '''
+    """
 
     print(logo)
     print(description)

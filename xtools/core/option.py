@@ -15,6 +15,7 @@ class Option(Abstract, metaclass=Singleton):
                 alias = self.__options = ChromeOptions()
             case _:
                 from ..exceptions import BrowserNameIsNotValid
+
                 raise BrowserNameIsNotValid(f"{browser} ")
         alias.platform_name = "X Tools"
 
@@ -25,6 +26,7 @@ class Option(Abstract, metaclass=Singleton):
             ipaddress.ip_address(ip)
         except ValueError:
             from ..exceptions import IPIsNotValid
+
             raise IPIsNotValid(f"{ip!r} ip is not valid")
         else:
             ip = ip + ":" + str(port)

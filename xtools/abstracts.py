@@ -32,7 +32,7 @@ class AbstractMenu(ABC):
 
     @abstractmethod
     def push(self, data: Any) -> None:
-        """ push data from menu or command """
+        """push data from menu or command"""
         raise NotImplementedError
 
     def exec(self) -> AbstractMenu:
@@ -49,7 +49,7 @@ class AbstractMenu(ABC):
 
 class ErrorHandler:
     def error_print(self):
-        """ print errors with styled and colorized  """
+        """print errors with styled and colorized"""
         ...
 
 
@@ -60,7 +60,8 @@ class AbstractCommand(ABC):
         self.menu = menu
 
     @abstractmethod
-    def exec(self) -> AbstractMenu: raise NotImplementedError
+    def exec(self) -> AbstractMenu:
+        raise NotImplementedError
 
     @staticmethod
     def cmd_print(message: str):

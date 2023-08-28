@@ -24,6 +24,7 @@ class Driver(Abstract, metaclass=Singleton):
                 self.__driver = Firefox
             case _:
                 from ..exceptions import DriverDoesNotSupported
+
                 raise DriverDoesNotSupported(f"{browser} does not supported.")
         Option(browser)  # auto create option
 
@@ -39,6 +40,7 @@ class Driver(Abstract, metaclass=Singleton):
             self.__driver_service = service
         else:
             from ..exceptions import OptionIsNotValid
+
             raise OptionIsNotValid("service type is not same with driver")
 
     @property
@@ -53,6 +55,7 @@ class Driver(Abstract, metaclass=Singleton):
             self.__driver_options = options
         else:
             from ..exceptions import OptionIsNotValid
+
             raise OptionIsNotValid("option type is not same with driver")
 
     @property
@@ -67,10 +70,17 @@ class Driver(Abstract, metaclass=Singleton):
         service = None
         if isinstance(self.__driver, Firefox):
             from selenium.webdriver.firefox.service import Service
+
             service = Service(log_file="xtools-browser.log")
         elif isinstance(self.__driver, Chrome):
             from selenium.webdriver.chrome.service import Service
+
             service = Service(log_file="xtools-browser.log")
 
-        return X(self.__driver(options=self.__driver_options, service=service,
-                               keep_alive=self.__driver_keep_alive))
+        return X(
+            self.__driver(
+                options=self.__driver_options,
+                service=service,
+                keep_alive=self.__driver_keep_alive,
+            )
+        )

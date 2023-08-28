@@ -28,6 +28,7 @@ class Logging:
                 critical(message)
             case _:
                 from ..exceptions import LoggerException
+
                 raise LoggerException(f"{log_level} log level is not valid")
 
 
@@ -39,7 +40,19 @@ class Singleton(type):
             cls._instance = super(Singleton, cls).__call__(*args, **kwargs)
         return cls._instance
 
+    def clear(cls):
+        """reset the singleton object"""
+        cls._instance = None
+
+
+class DriverMounter:
+    def __init__(self):
+        from . import Driver
+
+        self.driver = Driver()
+
 
 class Abstract(Logging):
     """the top level of abstraction for each core class in twitter tools"""
+
     pass
